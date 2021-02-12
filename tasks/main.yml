@@ -1,0 +1,22 @@
+---
+# chrony tasks/main.yml
+#
+# SPDX-FileCopyrightText: © 2021 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+- name: include OS-specific vars
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: include OS-specific tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Create chrony.conf configuration file from template
+  template:
+    src: "chrony.conf.j2"
+    dest: "{{ chrony_conf_dir }}/chrony.conf"
+    owner: root
+    group: root
+    mode: 0644
+    backup: true
+  notify:
+    - restart-chrony

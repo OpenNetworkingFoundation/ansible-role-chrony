@@ -1,0 +1,20 @@
+---
+# chrony defaults/main.yml
+#
+# SPDX-FileCopyrightText: © 2021 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+
+# list of NTP poos, and # of servers to use from each
+ntp_pools:
+  - name: ntp.ubuntu.com
+    count: 4
+  - name: 0.ubuntu.pool.ntp.org
+    count: 1
+  - name: 1.ubuntu.pool.ntp.org
+    count: 1
+  - name: 2.ubuntu.pool.ntp.org
+    count: 2
+
+# List of IP ranges in CIDR format to allow to use this NTP server
+ntp_client_allow: []

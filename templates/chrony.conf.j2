@@ -1,0 +1,44 @@
+# SPDX-FileCopyrightText: © 2021 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+# Welcome to the chrony configuration file. See chrony.conf(5) for more
+# information about usuable directives.
+
+# this is derived from the Ubuntu 18.04 default file, with modifications
+
+# NTP pools to obtain time from
+{% for pool in ntp_pools %}
+pool {{ pool['name'] }} iburst maxsources {{ pool['count'] }}
+{% endfor %}
+
+# This directive specify the location of the file containing ID/key pairs for
+# NTP authentication.
+keyfile {{ chrony_conf_dir }}/chrony.keys
+
+# This directive specify the file into which chronyd will store the rate
+# information.
+driftfile /var/lib/chrony/chrony.drift
+
+# Uncomment the following line to turn logging on.
+#log tracking measurements statistics
+
+# Log files location.
+logdir /var/log/chrony
+
+# Stop bad estimates upsetting machine clock.
+maxupdateskew 100.0
+
+# This directive enables kernel synchronisation (every 11 minutes) of the
+# real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
+rtcsync
+
+# Step the system clock instead of slewing it if the adjustment is larger than
+# one second, but only in the first three clock updates.
+makestep 1 3
+
+{% if ntp_client_allow %}
+# Function as an NTP server and allow access from these networks
+{% for cidr in ntp_client_allow %}
+allow {{ cidr }}
+{% endfor %}
+{% endif %}

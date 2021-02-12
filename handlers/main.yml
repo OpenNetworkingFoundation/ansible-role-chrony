@@ -1,0 +1,15 @@
+---
+# chrony handlers/main.yml
+#
+# SPDX-FileCopyrightText: © 2021 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+- name: start-chrony
+  service:
+    name: "chrony"
+    state: started
+
+- name: restart-chrony
+  service:
+    name: "chrony"
+    state: restarted

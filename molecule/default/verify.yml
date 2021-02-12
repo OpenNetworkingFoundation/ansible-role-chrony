@@ -1,0 +1,16 @@
+---
+# chrony molecule/default/verify.yml
+#
+# SPDX-FileCopyrightText: © 2021 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: Check that chrony is running
+      command:  # noqa 301
+        cmd: "chronyc activity"
+      register: cc_activity
+      failed_when: "'200 OK' not in cc_activity.stdout"
