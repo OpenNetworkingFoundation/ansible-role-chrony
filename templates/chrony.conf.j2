@@ -6,10 +6,19 @@
 
 # this is derived from the Ubuntu 18.04 default file, with modifications
 
+{% if ntp_pools %}
 # NTP pools to obtain time from
 {% for pool in ntp_pools %}
 pool {{ pool['name'] }} iburst maxsources {{ pool['count'] }}
 {% endfor %}
+{% endif %}
+
+{% if ntp_servers %}
+# Individual NTP servers
+{% for ntpserv in ntp_servers %}
+server {{ ntpserv['name'] }} iburst trust
+{% endfor %}
+{% endif %}
 
 # This directive specify the location of the file containing ID/key pairs for
 # NTP authentication.

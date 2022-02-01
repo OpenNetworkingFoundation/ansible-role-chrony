@@ -1,0 +1,15 @@
+---
+# chrony molecule/default/verify.yml
+#
+# SPDX-FileCopyrightText: © 2021 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+
+- name: Prepare for chrony role
+  hosts: all
+
+  pre_tasks:
+
+    - name: update apt cache
+      apt:
+        update_cache: true
