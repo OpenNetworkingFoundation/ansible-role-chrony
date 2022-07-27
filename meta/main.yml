@@ -6,6 +6,8 @@
 
 galaxy_info:
   role_name: chrony
+  namespace: onf
+
   author: Open Networking Foundation
   description: Chrony NTP server
   company: Open Networking Foundation
